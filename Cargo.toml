@@ -1,0 +1,26 @@
+[package]
+name = "typdeck"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.98"
+description = "Present Typst slides in the browser with speaker notes and live reload"
+
+[dependencies]
+clap = { version = "4.6.7", default-features = false, features = ["std", "derive", "help", "usage", "error-context"] }
+dirs = "6"
+pulldown-cmark = { version = "0.13.4", default-features = false, features = ["html"] }
+tokio = { version = "1.53.2", features = ["rt-multi-thread", "macros", "sync", "net", "time", "fs"] }
+topcoat = "0.10"
+topcoat-asset = { version = "0.10", features = ["bundler"] }
+typst = "0.15.1"
+typst-kit = { version = "0.15.1", features = [
+    "datetime",
+    "embedded-fonts",
+    "emit-diagnostics",
+    "scan-fonts",
+    "system-files",
+    "watcher",
+] }
+typst-layout = "0.15.1"
+typst-svg = "0.15.1"
+ureq = "3"
