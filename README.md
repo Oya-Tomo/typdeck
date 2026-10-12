@@ -2,7 +2,7 @@
 
 # typdeck
 
-**Typst スライドを、ブラウザでそのままプレゼン**
+**Present your Typst slides right in the browser**
 
 <p>
   <img alt="Rust" src="https://img.shields.io/badge/Rust-1.98%2B-ce422b?style=for-the-badge&logo=rust&logoColor=white">
@@ -16,29 +16,29 @@
 
 ## Features
 
-- 📺 **ビューア** — Typst のスライドだけを表示。ブラウザを全画面にして投影
-- 🎤 **プレゼンター画面**
-  - 👀 現在のスライドと次のスライド
-  - 📝 スピーカーノートを横に表示。その場で編集して Markdown に保存
-  - 🗂️ 全スライドのサムネイル一覧。現在のスライドを枠でハイライトし、クリックでジャンプ
-  - ⏱️ タイマー（開始 / 一時停止 / リセット / ±1分・±10秒）
-- ⚡ **ライブリロード** — `.typ` やノートを保存すると自動で画面を更新
-- 🔗 **リンク** — スライド内の URL は新しいタブで開く
-- 🎬 **GIF** — アニメーションをそのまま再生
-- 🔁 **同期** — どの画面で操作しても、ビューアとプレゼンターが一緒に動く（別端末でも可）
-- 🚨 **エラー表示** — Typst のエラーをプレゼンター画面に表示し、スライドは直前の成功状態を維持
-- 📦 **パッケージ** — `@preview` パッケージを自動でダウンロード
-- 🦀 **単体バイナリ** — Typst を組み込んでいるので `typst` コマンドは不要
+- 📺 **Viewer** — Shows only the Typst slides. Make the browser full screen and project it
+- 🎤 **Presenter console**
+  - 👀 The current slide and the next one
+  - 📝 Speaker notes alongside, editable in place and saved back to Markdown
+  - 🗂️ Thumbnails of all slides, with the current one outlined. Click to jump
+  - ⏱️ A timer (start / pause / reset / ±1 min / ±10 s)
+- ⚡ **Live reload** — Saving the `.typ` file or the notes updates every view
+- 🔗 **Links** — URLs in slides open in a new tab
+- 🎬 **GIFs** — Animations play as they are
+- 🔁 **Sync** — Every view follows the same slide, even across devices
+- 🚨 **Errors** — Typst errors appear in the presenter console while the slides keep their last good state
+- 📦 **Packages** — `@preview` packages are downloaded automatically
+- 🦀 **Single binary** — Typst is built in, so no `typst` command is needed
 
 ## Install
 
-Rust 1.98 以上が必要です（Topcoat の要件）。
+Requires Rust 1.98 or later (required by Topcoat).
 
 ```sh
 git clone https://github.com/Oya-Tomo/typdeck
 cd typdeck
-cargo install --path .                  # ~/.cargo/bin にインストール
-cargo install --path . --root ~/.local  # ~/.local/bin にインストール
+cargo install --path .                  # installs into ~/.cargo/bin
+cargo install --path . --root ~/.local  # installs into ~/.local/bin
 ```
 
 ## Usage
@@ -47,7 +47,7 @@ cargo install --path . --root ~/.local  # ~/.local/bin にインストール
 typdeck slides.typ -n notes.md
 ```
 
-起動すると 2 つの URL が表示されます。
+It prints two URLs:
 
 ```
 viewer:    http://127.0.0.1:3000/viewer
@@ -56,39 +56,39 @@ presenter: http://127.0.0.1:3000/presenter
 
 ### Options
 
-| オプション | 説明 |
+| Option | Description |
 |---|---|
-| `-n, --notes <FILE>` | ノートの Markdown ファイル（無ければ編集時に作成） |
-| `-p, --port <PORT>` | ポート番号（既定: `3000`） |
-| `--host <ADDR>` | 待ち受けアドレス（既定: `127.0.0.1`） |
-| `--root <DIR>` | Typst の絶対パスの基準（既定: スライドのディレクトリ） |
+| `-n, --notes <FILE>` | Markdown file with speaker notes (created when a note is first edited) |
+| `-p, --port <PORT>` | Port to listen on (default: `3000`) |
+| `--host <ADDR>` | Address to listen on (default: `127.0.0.1`) |
+| `--root <DIR>` | Root for absolute paths in Typst (default: the slides' directory) |
 
 ### Keys
 
-| キー | 動作 |
+| Key | Action |
 |---|---|
-| `→` `↓` `PageDown` `Space` | 次へ |
-| `←` `↑` `PageUp` `Backspace` | 前へ |
-| `Home` / `End` | 最初 / 最後 |
+| `→` `↓` `PageDown` `Space` | Next slide |
+| `←` `↑` `PageUp` `Backspace` | Previous slide |
+| `Home` / `End` | First / last slide |
 
 ## Speaker Notes
 
-`---` だけの行で区切ると、上から順に 1 枚目、2 枚目…のスライドに割り当てられます。コードブロック内の `---` は区切りとして扱いません。
+Separate the notes with lines containing only `---`. The sections are assigned to the slides in order. `---` inside fenced code blocks is not treated as a separator.
 
 ```markdown
-# はじめに
-**挨拶**して自己紹介
+# Intro
+Say **hello** and introduce yourself
 ---
-ここでリンクを紹介
+Show the link
 ---
-質疑応答
+Q&A
 ```
 
 ## Caveats
 
-- 🔓 認証はありません。`--host 0.0.0.0` で公開すると、同じネットワークの誰でもスライド操作とノート編集ができます
-- 🧪 Topcoat は実験段階のフレームワークです
-- 🗃️ 初回起動時に、ブラウザ用の JS を `~/.cache/typdeck` に用意します
+- 🔓 There is no authentication. With `--host 0.0.0.0`, anyone on the network can move the slides and edit the notes
+- 🧪 Topcoat is an experimental framework
+- 🗃️ On first launch, the browser runtime is prepared in `~/.cache/typdeck`
 
 ---
 
